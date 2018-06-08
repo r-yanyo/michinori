@@ -1,14 +1,16 @@
 <template>
   <div>
-    <div>
-      <input type='text' v-model="title" placeholder="タイトル">
-    </div>
-    <div>
-      <textarea name='' id='' cols='30' rows='10' v-model="content" placeholder="本文"></textarea>
-    </div>
-    <div>
-      <button @click="submitPost">投稿する</button>
-    </div>
+    <el-form ref="form" :model="form">
+      <el-form-item>
+        <el-input v-model="form.title" placeholder="title"></el-input>
+      </el-form-item>
+      <el-form-item >
+        <el-input type="textarea" v-model="form.content" placeholder="content"></el-input>
+      </el-form-item>
+      <el-form-item>
+        <el-button type="primary" @click="submitPost">投稿する</el-button>
+      </el-form-item>
+    </el-form>
   </div>
 </template>
 
@@ -18,22 +20,24 @@ import axios from "axios";
 export default {
   data: function() {
     return {
-      title: "",
-      content: ""
+      form: {
+        title: "",
+        content: ""
+      }
     };
   },
   methods: {
     submitPost: function() {
       axios
         .post("/api/posts", {
-          title: this.title,
-          content: this.content
+          title: this.form.title,
+          content: this.form.content
         })
         .then(
           res => {
             console.log(res);
-            this.title = "";
-            this.content = "";
+            this.form.title = "";
+            this.form.content = "";
           },
           error => {
             console.log(error);

@@ -6,7 +6,11 @@
 // All it does is render <div>Hello Vue</div> at the bottom of the page.
 
 import Vue from "vue";
+import ElementUI from "element-ui";
+import "element-ui/lib/theme-chalk/index.css";
 import router from "../router.js";
+
+Vue.use(ElementUI);
 
 import App from "../app.vue";
 

@@ -2,7 +2,6 @@
   <div id="app">
     <Header />
     <Content />
-    <createPost />
   </div>
 </template>
 

@@ -2,11 +2,11 @@
   <ul>
     <li v-for="post in posts" :key="post.id">
       <el-card class="box-card">
-        <div slot="header" class="clearfix">
-          {{post.title}}
+        <div slot="header" class="clearfix header">
+          <h2>{{post.title}}</h2>
         </div>
         <div class="text item">
-          {{post.content}}
+          <p>{{post.content}}</p>
         </div>
       </el-card>
     </li>
@@ -43,6 +43,14 @@ export default {
 <style lang="scss" scoped>
 li {
   list-style: none;
+}
+.box-card {
+  .header h2 {
+    margin: 5px;
+  }
+  .item p {
+    line-height: 40px;
+  }
 }
 </style>
 

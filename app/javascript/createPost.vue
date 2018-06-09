@@ -12,12 +12,12 @@
       </el-form-item>
     </el-form>
     <el-dialog
-      title="Tips"
+      title="投稿確認"
       :visible.sync="dialogVisible">
       <span>本当に投稿しますか？</span>
       <span slot="footer" class="dialog-footer">
-        <el-button type="primary" @click="dialogVisible = false">Confirm</el-button>
-        <el-button @click="dialogVisible = false">Cancel</el-button>
+        <el-button type="primary" @click="dialogVisible = false">投稿する</el-button>
+        <el-button @click="dialogVisible = false">やめる</el-button>
       </span>
     </el-dialog>
   </div>

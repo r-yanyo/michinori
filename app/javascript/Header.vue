@@ -2,8 +2,8 @@
   <div>
     <el-menu :default-active="activeIndex" :router="true" class="el-menu-demo" mode="horizontal" @select="handleSelect">
       <el-menu-item index="/">TOP</el-menu-item>
-      <el-menu-item index="about">ABOUT</el-menu-item>
-      <el-menu-item index="new">新規投稿</el-menu-item>
+      <el-menu-item index="/about">ABOUT</el-menu-item>
+      <el-menu-item index="/new">新規投稿</el-menu-item>
     </el-menu>
   </div>
 </template>
@@ -16,7 +16,7 @@ export default {
     };
   },
   mounted: function() {
-    this.activeIndex = this.$route.fullPath.slice(1);
+    this.activeIndex = this.$route.fullPath;
   },
   methods: {
     handleSelect(key, keyPath) {}

@@ -7,7 +7,7 @@
           <h2>{{post.title}}</h2>
         </div>
         <div class="text item">
-          <p>{{post.content}}</p>
+          <div v-html="post.compiledMarkdown"></div>
         </div>
         <el-row>
           <el-button round :disabled="buttonDisabled" @click="addLikeNum(post.id)">拍手: {{post.likeNum}}</el-button>
@@ -24,6 +24,7 @@
 
 <script>
 import axios from "axios";
+import marked from "marked";
 
 export default {
   data: function() {
@@ -45,7 +46,13 @@ export default {
     fetchPosts: function(pageNum) {
       axios.get(`/api/posts?page=${pageNum}`).then(
         res => {
-          this.posts = res.data.posts;
+          let tmp = res.data.posts;
+          tmp.forEach(element => {
+            element.compiledMarkdown = marked(element.content, {
+              sanitize: true
+            });
+          });
+          this.posts = tmp;
         },
         error => {
           console.log(error);

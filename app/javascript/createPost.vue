@@ -5,10 +5,11 @@
         <el-input v-model="form.title" placeholder="title"></el-input>
       </el-form-item>
       <el-form-item >
-        <el-input type="textarea" v-model="form.content" placeholder="content"></el-input>
+        <el-input type="textarea" v-model="form.content" rows=15 placeholder="content"></el-input>
       </el-form-item>
       <el-form-item>
         <el-button type="primary" @click="dialogVisible = true, submitPost">投稿する</el-button>
+        <el-button @click="previewDialogVisible = true">プレビュー</el-button>
       </el-form-item>
     </el-form>
     <el-dialog
@@ -16,15 +17,22 @@
       :visible.sync="dialogVisible">
       <span>本当に投稿しますか？</span>
       <span slot="footer" class="dialog-footer">
-        <el-button type="primary" @click="dialogVisible = false">投稿する</el-button>
+        <el-button type="primary" @click="dialogVisible = false, submitPost()">投稿する</el-button>
         <el-button @click="dialogVisible = false">やめる</el-button>
       </span>
+    </el-dialog>
+    <el-dialog
+      title="プレビュー"
+      :visible.sync="previewDialogVisible"
+      :fullscreen=true>
+      <div v-html="compiledMarkdown"></div>
     </el-dialog>
   </div>
 </template>
 
 <script>
 import axios from "axios";
+import marked from "marked";
 
 export default {
   data: function() {
@@ -33,8 +41,14 @@ export default {
         title: "",
         content: ""
       },
-      dialogVisible: false
+      dialogVisible: false,
+      previewDialogVisible: false
     };
+  },
+  computed: {
+    compiledMarkdown: function() {
+      return marked(this.form.content, { sanitize: true });
+    }
   },
   methods: {
     submitPost: function() {
@@ -63,4 +77,3 @@ export default {
   }
 };
 </script>
-

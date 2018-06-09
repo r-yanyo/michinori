@@ -8,9 +8,18 @@
         <el-input type="textarea" v-model="form.content" placeholder="content"></el-input>
       </el-form-item>
       <el-form-item>
-        <el-button type="primary" @click="submitPost">投稿する</el-button>
+        <el-button type="primary" @click="dialogVisible = true, submitPost">投稿する</el-button>
       </el-form-item>
     </el-form>
+    <el-dialog
+      title="Tips"
+      :visible.sync="dialogVisible">
+      <span>本当に投稿しますか？</span>
+      <span slot="footer" class="dialog-footer">
+        <el-button type="primary" @click="dialogVisible = false">Confirm</el-button>
+        <el-button @click="dialogVisible = false">Cancel</el-button>
+      </span>
+    </el-dialog>
   </div>
 </template>
 
@@ -23,7 +32,8 @@ export default {
       form: {
         title: "",
         content: ""
-      }
+      },
+      dialogVisible: false
     };
   },
   methods: {
@@ -35,7 +45,6 @@ export default {
         })
         .then(
           res => {
-            console.log(res);
             this.form.title = "";
             this.form.content = "";
           },
@@ -43,7 +52,15 @@ export default {
             console.log(error);
           }
         );
+    },
+    handleClose(done) {
+      this.$confirm("Are you sure to close this dialog?")
+        .then(_ => {
+          done();
+        })
+        .catch(_ => {});
     }
   }
 };
 </script>
+

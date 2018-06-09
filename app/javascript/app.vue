@@ -1,7 +1,9 @@
 <template>
   <div id="app">
-    <Header />
-    <Content />
+    <el-container>
+      <el-header><Header /></el-header>
+      <el-main><Content /></el-main>
+    </el-container>
   </div>
 </template>
 
@@ -19,5 +21,11 @@ export default {
 p {
   font-size: 2em;
   text-align: center;
+}
+</style>
+
+<style lang="scss">
+.el-dialog {
+  min-width: 300px;
 }
 </style>

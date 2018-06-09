@@ -1,7 +1,7 @@
 class Api::PostsController < ApplicationController
   # GET /api/posts
   def index
-    @posts = Post.order('updated_at DESC')
+    @posts = Post.order('created_at DESC')
   end
 
   # POST /api/posts
@@ -11,6 +11,17 @@ class Api::PostsController < ApplicationController
       render :show, status: :ok
     else
       render json: @post.errors, status: :unprocessable_entity
+    end
+  end
+
+  # POST /api/like/post/:id
+  def add_like_num
+    @post = Post.find(params[:post_id])
+    @post.likeNum += 1
+    if @post.save
+      render :show, status: :ok
+    else
+      render json: @post.errors, status: :internal_server_error
     end
   end
 

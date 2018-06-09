@@ -6,5 +6,6 @@ Rails.application.routes.draw do
 
   namespace :api, format: 'json' do
     resources :posts, only: [:index, :create]
+    post '/like/post/:post_id', to: 'posts#add_like_num'
   end
 end

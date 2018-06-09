@@ -9,6 +9,9 @@
         <div class="text item">
           <p>{{post.content}}</p>
         </div>
+        <el-row>
+          <el-button round :disabled="buttonDisabled" @click="addLikeNum(post.id)">拍手: {{post.likeNum}}</el-button>
+        </el-row>
       </el-card>
     </li>
   </ul>
@@ -26,11 +29,12 @@ export default {
   data: function() {
     return {
       posts: [],
-      currentPage: 1
+      currentPage: 1,
+      buttonDisabled: false
     };
   },
   mounted: function() {
-    this.fetchPosts();
+    this.fetchPosts(this.currentPage);
   },
   watch: {
     currentPage: function(bef, af) {
@@ -45,6 +49,21 @@ export default {
         },
         error => {
           console.log(error);
+        }
+      );
+    },
+    addLikeNum: function(post_id) {
+      this.buttonDisabled = true;
+      axios.post(`/api/like/post/${post_id}`).then(
+        res => {
+          this.posts.find(el => {
+            return el.id == post_id;
+          }).likeNum++;
+          this.buttonDisabled = false;
+        },
+        error => {
+          console.log(error);
+          this.buttonDisabled = false;
         }
       );
     }

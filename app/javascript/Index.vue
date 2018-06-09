@@ -1,12 +1,14 @@
 <template>
   <ul>
     <li v-for="post in posts" :key="post.id">
-      <div>
-        {{post.title}}
-      </div>
-      <div>
-        {{post.content}}
-      </div>
+      <el-card class="box-card">
+        <div slot="header" class="clearfix">
+          {{post.title}}
+        </div>
+        <div class="text item">
+          {{post.content}}
+        </div>
+      </el-card>
     </li>
   </ul>
 </template>
@@ -37,3 +39,10 @@ export default {
   }
 };
 </script>
+
+<style lang="scss" scoped>
+li {
+  list-style: none;
+}
+</style>
+

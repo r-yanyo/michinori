@@ -25,6 +25,9 @@ p {
 </style>
 
 <style lang="scss">
+p {
+  line-height: 30px;
+}
 .el-dialog {
   min-width: 300px;
 }

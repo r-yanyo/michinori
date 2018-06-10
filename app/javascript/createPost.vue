@@ -1,5 +1,8 @@
 <template>
   <div>
+    <div v-for="(error, i) in errors" :key="i">
+      <el-alert :title="error" type="error" :closable="false" class="error-alert"></el-alert>
+    </div>
     <el-form ref="form" :model="form">
       <el-form-item>
         <el-input v-model="form.title" placeholder="例: 私が◯◯できるようになるまでの過程"></el-input>
@@ -19,7 +22,7 @@
       :visible.sync="dialogVisible">
       <span>本当に投稿しますか？</span>
       <span slot="footer" class="dialog-footer">
-        <el-button type="primary" @click="dialogVisible = false, submitPost()">投稿する</el-button>
+        <el-button type="primary" @click="dialogVisible = false, checkForm()">投稿する</el-button>
         <el-button @click="dialogVisible = false">やめる</el-button>
       </span>
     </el-dialog>
@@ -50,6 +53,7 @@ export default {
         title: "",
         content: ""
       },
+      errors: [],
       dialogVisible: false,
       previewDialogVisible: false
     };
@@ -60,6 +64,12 @@ export default {
     }
   },
   methods: {
+    checkForm: function() {
+      if (this.form.title && this.form.content) this.submitPost();
+      this.errors = [];
+      if (!this.form.title) this.errors.push("タイトルが必要です。");
+      if (!this.form.content) this.errors.push("投稿内容が必要です。");
+    },
     submitPost: function() {
       axios
         .post("/api/posts", {
@@ -86,3 +96,9 @@ export default {
   }
 };
 </script>
+
+<style lang="scss" scoped>
+.error-alert {
+  margin-bottom: 5px;
+}
+</style>

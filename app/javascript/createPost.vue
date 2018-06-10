@@ -25,7 +25,14 @@
       title="プレビュー"
       :visible.sync="previewDialogVisible"
       :fullscreen=true>
-      <div v-html="compiledMarkdown"></div>
+      <el-card class="box-card">
+        <div slot="header" class="clearfix header">
+          <h2>{{form.title}}</h2>
+        </div>
+        <div class="text item">
+          <div v-html="compiledMarkdown"></div>
+        </div>
+      </el-card>
     </el-dialog>
   </div>
 </template>

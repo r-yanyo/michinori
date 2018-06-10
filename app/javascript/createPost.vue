@@ -46,6 +46,10 @@
 import axios from "axios";
 import marked from "marked";
 
+axios.defaults.headers["X-CSRF-TOKEN"] = document.querySelector(
+  "meta[name=csrf-token]"
+).content;
+
 export default {
   data: function() {
     return {

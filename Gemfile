@@ -4,12 +4,11 @@ git_source(:github) do |repo_name|
   repo_name = "#{repo_name}/#{repo_name}" unless repo_name.include?("/")
   "https://github.com/#{repo_name}.git"
 end
-
+# Specify ruby version to deploy heroku
+ruby '2.4.2'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.1.6'
-# Use sqlite3 as the database for Active Record
-gem 'sqlite3'
 # Use Puma as the app server
 gem 'puma', '~> 3.7'
 # Use SCSS for stylesheets
@@ -20,7 +19,8 @@ gem 'uglifier', '>= 1.3.0'
 gem 'webpacker'
 # See https://github.com/rails/execjs#readme for more supported runtimes
 # gem 'therubyracer', platforms: :ruby
-
+# DB used in heroku
+gem 'pg'
 # Use CoffeeScript for .coffee assets and views
 gem 'coffee-rails', '~> 4.2'
 # Turbolinks makes navigating your web application faster. Read more: https://github.com/turbolinks/turbolinks
@@ -43,6 +43,8 @@ group :development, :test do
   # Adds support for Capybara system testing and selenium driver
   gem 'capybara', '~> 2.13'
   gem 'selenium-webdriver'
+  # Use sqlite3 as the database for Active Record
+  gem 'sqlite3'
 end
 
 group :development do

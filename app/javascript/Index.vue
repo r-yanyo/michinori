@@ -16,6 +16,7 @@
     </li>
   </ul>
   <el-pagination
+    background
     layout="prev, pager, next"
     :total="50" :current-page.sync="currentPage">
   </el-pagination>

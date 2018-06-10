@@ -1,14 +1,10 @@
 <template>
   <div class="header">
-    <div class="main-logo">
-      <router-link to="/"><h1>道のり</h1></router-link>
-    </div>
-    <div class="menus">
       <el-menu :default-active="activeIndex" :router="true" class="el-menu-demo" mode="horizontal">
+        <el-menu-item index="/"><h1 class="main-logo">道のり</h1></el-menu-item>
         <el-menu-item index="/about">このアプリについて</el-menu-item>
         <el-menu-item index="/new">新規投稿</el-menu-item>
       </el-menu>
-    </div>
   </div>
 </template>
 
@@ -26,11 +22,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.header {
-  display: flex;
-}
-.main-logo a {
-  text-decoration: none;
+.main-logo {
+  display: inline;
 }
 </style>
-

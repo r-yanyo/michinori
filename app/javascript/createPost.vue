@@ -2,10 +2,12 @@
   <div>
     <el-form ref="form" :model="form">
       <el-form-item>
-        <el-input v-model="form.title" placeholder="title"></el-input>
+        <el-input v-model="form.title" placeholder="例: 私が◯◯できるようになるまでの過程"></el-input>
       </el-form-item>
       <el-form-item >
-        <el-input type="textarea" v-model="form.content" rows=15 placeholder="content"></el-input>
+        <el-input type="textarea" v-model="form.content" rows=15 
+        placeholder="内容 Markdown形式で書けます。">
+      </el-input>
       </el-form-item>
       <el-form-item>
         <el-button type="primary" @click="dialogVisible = true, submitPost">投稿する</el-button>

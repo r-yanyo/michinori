@@ -26,8 +26,10 @@ p {
 
 <style lang="scss">
 body {
-  font-family: "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB",
-    "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
+  font-size: 15px;
+  font-family: "Quicksand", "游ゴシック体", "Yu Gothic", YuGothic,
+    "ヒラギノ角ゴシック Pro", "Hiragino Kaku Gothic Pro", "メイリオ", Meiryo,
+    Osaka, "ＭＳ Ｐゴシック", "MS PGothic", sans-serif;
 }
 p {
   line-height: 1.65;

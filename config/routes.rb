@@ -5,6 +5,9 @@ Rails.application.routes.draw do
   get '/new', to: 'home#index'
 
   namespace :api, format: 'json' do
+    resource :users, only: [:create, :update, :destroy]
+    post '/sessions', to: 'sessions#create'
+    delete '/sessions', to: 'sessions#destroy'
     resources :posts, only: [:index, :create]
     post '/like/post/:post_id', to: 'posts#add_like_num'
   end

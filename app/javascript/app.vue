@@ -10,10 +10,9 @@
 <script>
 import Header from "./Header";
 import Content from "./Content";
-import createPost from "./createPost";
 
 export default {
-  components: { Header, Content, createPost }
+  components: { Header, Content }
 };
 </script>
 

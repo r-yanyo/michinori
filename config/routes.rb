@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   root to: 'home#index'
   get '/about', to: 'home#index'
   get '/new', to: 'home#index'
+  get '/login', to: 'home#index'
 
   namespace :api, format: 'json' do
     resource :users, only: [:create, :update, :destroy]

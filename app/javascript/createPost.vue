@@ -5,10 +5,10 @@
       <el-alert :title="error" type="error" :closable="false" class="alert"></el-alert>
     </div>
     <el-form ref="form" :model="form">
-      <el-form-item>
+      <el-form-item label="タイトル">
         <el-input v-model="form.title" placeholder="例: 私が◯◯できるようになるまでの過程"></el-input>
       </el-form-item>
-      <el-form-item >
+      <el-form-item label="投稿内容">
         <el-input type="textarea" v-model="form.content" rows=15 
         placeholder="内容 Markdown形式で書けます。">
       </el-input>

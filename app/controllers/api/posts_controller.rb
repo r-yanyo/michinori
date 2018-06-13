@@ -1,12 +1,23 @@
 class Api::PostsController < ApplicationController
-  # GET /api/posts
+  before_action :set_user, only: [:create, :delete]
+
+  # GET /api/posts, /api/users/posts
   def index
-    @posts = Post.order('created_at DESC')
+    if @user
+      @posts = Post.find_by!(user_id: @user.id).order('created_at DESC')
+    else
+      @posts = Post.order('created_at DESC')
+    end
   end
 
-  # POST /api/posts
+  # POST /api/posts, /api/users/posts
   def create
-    @post = Post.new(post_params)
+    if @user
+      @post = Post.new(post_params.merge(user_id: @user.id))
+    else
+      @post = Post.new(post_params)
+    end
+
     if @post.save(post_params)
       render :show, status: :ok
     else
@@ -14,7 +25,18 @@ class Api::PostsController < ApplicationController
     end
   end
 
-  # POST /api/like/post/:id
+  # DELETE /api/users/posts/:id
+  def destroy
+    @post = Post.find(params[:id])
+    if @user.id == @post.user_id
+      @post.destroy
+      render plain: "success", status: :ok
+    else
+      render json: @post.errors, status: :unprocessable_entity
+    end
+  end
+
+  # POST /api/like/post/:post_id
   def add_like_num
     @post = Post.find(params[:post_id])
     @post.likeNum += 1
@@ -26,7 +48,11 @@ class Api::PostsController < ApplicationController
   end
 
   private
+    def set_user
+      @user = User.find_by!(remember_token: post_params[:remember_token])
+    end
+
     def post_params
-      params.require(:post).permit(:title, :content)
+      params.require(:post).permit(:title, :content, :remember_token)
     end
 end

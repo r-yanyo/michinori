@@ -16,6 +16,7 @@
 
 <script>
 import axios from "axios";
+import auth from "./auth.js";
 
 export default {
   data: function() {
@@ -28,19 +29,7 @@ export default {
   },
   methods: {
     submit: function() {
-      axios
-        .post("/api/sessions", {
-          email: this.form.email,
-          password: this.form.password
-        })
-        .then(
-          res => {
-            console.log(res.data);
-          },
-          error => {
-            console.log(error);
-          }
-        );
+      auth.login(this.form.email, this.form.password);
     }
   }
 };

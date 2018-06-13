@@ -49,7 +49,7 @@ class Api::PostsController < ApplicationController
 
   private
     def set_user
-      @user = User.find_by!(remember_token: post_params[:remember_token])
+      @user = User.find_by(remember_token: post_params[:remember_token])
     end
 
     def post_params

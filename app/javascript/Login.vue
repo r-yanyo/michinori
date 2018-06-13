@@ -8,14 +8,13 @@
         <el-input type="password" v-model="form.password" auto-complete="off"></el-input>
       </el-form-item>
       <el-form-item>
-        <el-button type="primary" @click="submit">送信する</el-button>
+        <el-button type="primary" @click="login">ログイン</el-button>
       </el-form-item>
     </el-form>
   </div>
 </template>
 
 <script>
-import axios from "axios";
 import auth from "./auth.js";
 
 export default {
@@ -28,7 +27,7 @@ export default {
     };
   },
   methods: {
-    submit: function() {
+    login: function() {
       auth.login(this.form.email, this.form.password);
     }
   }

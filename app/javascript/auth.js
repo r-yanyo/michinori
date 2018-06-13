@@ -11,7 +11,7 @@ export default {
       .then(res => {
         const post = res.data.post;
         this.setAccessToken(post.id, post.remember_token);
-        router.push("/");
+        router.push("/mypage");
       })
       .catch(err => {
         console.log(err);

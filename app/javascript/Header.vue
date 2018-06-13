@@ -5,7 +5,7 @@
         <el-menu-item index="/about">道のりとは</el-menu-item>
         <el-menu-item index="/new">新規投稿</el-menu-item>
         <el-menu-item v-if="!isLoggedIn()" index="/login">ログイン</el-menu-item>
-        <el-menu-item v-else @click="logout" index="/logout">ログアウト</el-menu-item>
+        <el-menu-item v-else index="/mypage">マイページ</el-menu-item>
       </el-menu>
   </div>
 </template>
@@ -25,9 +25,6 @@ export default {
   methods: {
     isLoggedIn: function() {
       return auth.isLoggedIn();
-    },
-    logout: function() {
-      auth.logout();
     }
   }
 };

@@ -5,6 +5,16 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+
+10.times do |i|
+  @user = User.create!(email: "user"+i.to_s()+"@example.com", password: "foobar", name: "user"+i.to_s())
+
+  10.times do |i|
+    @user.posts.create!(title: 'ユーザ'+i.to_s()+'のサンプルポスト', content: 'ユーザ'+i.to_s()+'のサンプルのコンテンツです。')
+  end
+
+end
+
 50.times do |i|
   Post.create!(title: 'Sample Post'+i.to_s(), content: 'Sample Content')
 end

@@ -39,7 +39,7 @@ export default {
   getUserId: function() {
     return localStorage.getItem("user_id");
   },
-  getAccessToken: function() {
+  getToken: function() {
     return localStorage.getItem("token");
   }
 };

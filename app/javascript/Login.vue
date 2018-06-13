@@ -18,6 +18,7 @@
 import auth from "./auth.js";
 
 export default {
+  name: "Login",
   data: function() {
     return {
       form: {

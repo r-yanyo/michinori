@@ -12,6 +12,7 @@
 import auth from "./auth.js";
 
 export default {
+  name: "MyPage",
   data: function() {
     return {
       form: {

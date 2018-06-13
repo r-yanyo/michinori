@@ -24,8 +24,11 @@
 </template>
 
 <script>
+import auth from "./auth.js";
 import axios from "axios";
 import marked from "marked";
+
+axios.defaults.headers["Authorization"] = auth.getToken();
 
 export default {
   name: "post-items",
@@ -36,6 +39,7 @@ export default {
       buttonDisabled: false
     };
   },
+  props: ["user_id"],
   mounted: function() {
     this.fetchPosts(this.currentPage);
   },
@@ -46,7 +50,10 @@ export default {
   },
   methods: {
     fetchPosts: function(pageNum) {
-      axios.get(`/api/posts?page=${pageNum}`).then(
+      let url = "";
+      if (this.user_id) url = `/api/users/${this.user_id}/posts`;
+      else url = "/api/posts";
+      axios.get(`${url}?page=${pageNum}`).then(
         res => {
           let tmp = res.data.posts;
           tmp.forEach(element => {

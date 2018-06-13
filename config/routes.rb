@@ -7,8 +7,10 @@ Rails.application.routes.draw do
   get '/mypage', to: 'home#index'
 
   namespace :api, format: 'json' do
-    resource :users, only: [:create, :update, :destroy] do
-      resources :posts, only: [:index, :update, :create, :destroy]
+    resources :users, only: [:create, :update, :destroy] do
+      member do
+        resources :posts, only: [:index, :update, :create, :destroy]
+      end
     end
     post '/sessions', to: 'sessions#create'
     delete '/sessions', to: 'sessions#destroy'

@@ -1,10 +1,10 @@
 class Api::PostsController < ApplicationController
-  before_action :set_user, only: [:create, :delete]
+  before_action :set_user, only: [:index, :create, :destroy]
 
-  # GET /api/posts, /api/users/posts
+  # GET /api/posts, /api/users/:id/posts
   def index
-    if @user
-      @posts = Post.find_by!(user_id: @user.id).order('created_at DESC')
+    if params[:id]
+      @posts = Post.where(user_id: params[:id]).order('created_at DESC')
     else
       @posts = Post.order('created_at DESC')
     end
@@ -49,10 +49,10 @@ class Api::PostsController < ApplicationController
 
   private
     def set_user
-      @user = User.find_by(remember_token: post_params[:remember_token])
+      @user = User.find_by(remember_token: request.headers['Authorization'])
     end
 
     def post_params
-      params.require(:post).permit(:title, :content, :remember_token)
+      params.require(:post).permit(:title, :content)
     end
 end

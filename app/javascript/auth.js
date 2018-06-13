@@ -19,7 +19,7 @@ export default {
   },
   logout: function() {
     axios
-      .delete(`/api/sessions/${this.getUserId()}`)
+      .delete(`/api/sessions`)
       .then(res => {
         localStorage.removeItem("user_id");
         localStorage.removeItem("token");

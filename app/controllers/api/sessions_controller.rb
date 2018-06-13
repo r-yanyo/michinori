@@ -1,5 +1,4 @@
 class Api::SessionsController < ApplicationController
-  before_action :require_sign_in!, only: [:destroy]
   before_action :set_user, only: [:create]
   
   # POST /api/sessions
@@ -12,9 +11,9 @@ class Api::SessionsController < ApplicationController
     end
   end
 
-  # DELETE /api/sessions/:id
+  # DELETE /api/sessions
   def destroy
-    render text: "success", status: :ok
+    render plain: "success", status: :ok
   end
 
   private

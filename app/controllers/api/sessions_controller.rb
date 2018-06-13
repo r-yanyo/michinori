@@ -12,9 +12,8 @@ class Api::SessionsController < ApplicationController
     end
   end
 
-  # DELETE /api/sessions
+  # DELETE /api/sessions/:id
   def destroy
-    sign_out
     render text: "success", status: :ok
   end
 

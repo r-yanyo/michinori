@@ -1,6 +1,8 @@
 <template>
   <div class="content">
-    <router-view></router-view>
+    <keep-alive include="CreatePost">
+      <router-view />
+    </keep-alive>
   </div>
 </template>
 

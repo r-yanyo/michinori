@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <keep-alive>
     <el-alert v-if="success" title="投稿しました。" type="success" class="alert"></el-alert>
     <div v-for="(error, i) in errors" :key="i">
       <el-alert :title="error" type="error" :closable="false" class="alert"></el-alert>
@@ -30,7 +30,7 @@
     <el-dialog
       title="プレビュー"
       :visible.sync="previewDialogVisible"
-      :fullscreen=true>
+      :fullscreen="true">
       <el-card class="box-card">
         <div slot="header" class="clearfix header">
           <h2>{{form.title}}</h2>
@@ -40,10 +40,11 @@
         </div>
       </el-card>
     </el-dialog>
-  </div>
+  </keep-alive>
 </template>
 
 <script>
+import auth from "./auth.js";
 import axios from "axios";
 import marked from "marked";
 
@@ -52,6 +53,7 @@ axios.defaults.headers["X-CSRF-TOKEN"] = document.querySelector(
 ).content;
 
 export default {
+  name: "CreatePost",
   data: function() {
     return {
       form: {
@@ -81,7 +83,8 @@ export default {
       axios
         .post("/api/posts", {
           title: this.form.title,
-          content: this.form.content
+          content: this.form.content,
+          remember_token: auth.getToken()
         })
         .then(
           res => {

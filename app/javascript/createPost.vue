@@ -1,5 +1,5 @@
 <template>
-  <keep-alive>
+  <div>
     <el-alert v-if="success" title="投稿しました。" type="success" class="alert"></el-alert>
     <div v-for="(error, i) in errors" :key="i">
       <el-alert :title="error" type="error" :closable="false" class="alert"></el-alert>
@@ -40,7 +40,7 @@
         </div>
       </el-card>
     </el-dialog>
-  </keep-alive>
+  </div>
 </template>
 
 <script>

@@ -1,7 +1,7 @@
 <template>
   <div>
     <ul v-loading="loading" class="post-list">
-      <li v-for="post in posts" :key="post.id">
+      <li v-for="post in pagingPosts" :key="post.id">
         <el-card class="box-card">
           <div slot="header" class="clearfix header">
             <h2>{{post.title}}</h2>
@@ -19,7 +19,8 @@
     <el-pagination
     background
     layout="prev, pager, next"
-    :total="50" :current-page.sync="currentPage">
+    :page-size="POSTS_PER_PAGE"
+    :total="posts.length" :current-page.sync="currentPage">
     </el-pagination>
   </div>
 </template>
@@ -38,16 +39,26 @@ export default {
       posts: [],
       currentPage: 1,
       buttonDisabled: false,
-      loading: true
+      loading: true,
+      POSTS_PER_PAGE: 10
     };
   },
   props: ["user_id"],
   mounted: function() {
-    this.fetchPosts(this.currentPage);
+    //this.fetchPosts(this.currentPage);
+    this.fetchPostsAll();
   },
   watch: {
     currentPage: function(bef, af) {
-      this.fetchPosts(this.currentPage);
+      //this.fetchPosts(this.currentPage);
+    }
+  },
+  computed: {
+    pagingPosts: function() {
+      return this.posts.slice(
+        (this.currentPage - 1) * this.POSTS_PER_PAGE,
+        this.currentPage * this.POSTS_PER_PAGE
+      );
     }
   },
   methods: {
@@ -55,8 +66,27 @@ export default {
       let url = "";
       if (this.user_id) url = `/api/users/${this.user_id}/posts`;
       else url = "/api/posts";
-      let vm = this;
       axios.get(`${url}?page=${pageNum}`).then(
+        res => {
+          let tmp = res.data.posts;
+          tmp.forEach(element => {
+            element.compiledMarkdown = marked(element.content, {
+              sanitize: true
+            });
+          });
+          this.posts = tmp;
+          this.loading = false;
+        },
+        error => {
+          console.log(error);
+        }
+      );
+    },
+    fetchPostsAll: function() {
+      let url = "";
+      if (this.user_id) url = `/api/users/${this.user_id}/posts`;
+      else url = "/api/posts";
+      axios.get(`${url}`).then(
         res => {
           let tmp = res.data.posts;
           tmp.forEach(element => {

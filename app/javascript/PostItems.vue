@@ -1,6 +1,6 @@
 <template>
   <div>
-    <ul>
+    <ul v-loading="loading" class="post-list">
       <li v-for="post in posts" :key="post.id">
         <el-card class="box-card">
           <div slot="header" class="clearfix header">
@@ -36,7 +36,8 @@ export default {
     return {
       posts: [],
       currentPage: 1,
-      buttonDisabled: false
+      buttonDisabled: false,
+      loading: true
     };
   },
   props: ["user_id"],
@@ -53,6 +54,7 @@ export default {
       let url = "";
       if (this.user_id) url = `/api/users/${this.user_id}/posts`;
       else url = "/api/posts";
+      let vm = this;
       axios.get(`${url}?page=${pageNum}`).then(
         res => {
           let tmp = res.data.posts;
@@ -62,6 +64,7 @@ export default {
             });
           });
           this.posts = tmp;
+          this.loading = false;
         },
         error => {
           console.log(error);
@@ -93,6 +96,9 @@ ul {
 }
 li {
   list-style: none;
+}
+.post-list {
+  min-height: 400px;
 }
 .box-card {
   margin-bottom: 10px;

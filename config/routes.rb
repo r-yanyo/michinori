@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   get '/new', to: 'home#index'
   get '/login', to: 'home#index'
   get '/mypage', to: 'home#index'
+  get '/signup', to: 'home#index'
 
   namespace :api, format: 'json' do
     resources :users, only: [:create, :update, :destroy] do

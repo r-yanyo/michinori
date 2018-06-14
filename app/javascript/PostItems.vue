@@ -5,6 +5,7 @@
         <el-card class="box-card">
           <div slot="header" class="clearfix header">
             <h2>{{post.title}}</h2>
+            <p>author: {{post.author}}</p>
           </div>
           <div class="text item">
             <div v-html="post.compiledMarkdown"></div>

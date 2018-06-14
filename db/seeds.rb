@@ -10,7 +10,7 @@
   @user = User.create!(email: "user"+i.to_s()+"@example.com", password: "foobar", name: "user"+i.to_s(), remember_token: User.encrypt(User.new_remember_token))
 
   10.times do |j|
-    @user.posts.create!(title: 'ユーザ'+i.to_s()+'のサンプルポスト', content: 'ユーザ'+i.to_s()+'のサンプルのコンテンツです。')
+    @user.posts.create!(title: 'ユーザ'+i.to_s()+'のサンプルポスト', content: 'ユーザ'+i.to_s()+'のサンプルのコンテンツです。', author: @user.name)
   end
 
 end

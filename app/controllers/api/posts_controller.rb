@@ -13,7 +13,7 @@ class Api::PostsController < ApplicationController
   # POST /api/posts, /api/users/posts
   def create
     if @user
-      @post = Post.new(post_params.merge(user_id: @user.id))
+      @post = Post.new(post_params.merge(user_id: @user.id, author: @user.name))
     else
       @post = Post.new(post_params)
     end

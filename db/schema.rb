@@ -19,6 +19,7 @@ ActiveRecord::Schema.define(version: 20180612132258) do
     t.datetime "updated_at", null: false
     t.integer "likeNum", default: 0
     t.integer "user_id"
+    t.string "author", default: "名無しさん"
   end
 
   create_table "users", force: :cascade do |t|

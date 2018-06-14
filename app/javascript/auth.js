@@ -29,6 +29,24 @@ export default {
         console.log(err);
       });
   },
+  signup: function(name, email, password, password_confirmation) {
+    axios
+      .post(`api/users`, {
+        user: {
+          name,
+          email,
+          password,
+          password_confirmation
+        }
+      })
+      .then(res => {
+        console.log(res.data);
+        router.push("/login");
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  },
   setAccessToken: function(id, token) {
     localStorage.setItem("user_id", id);
     localStorage.setItem("token", token);

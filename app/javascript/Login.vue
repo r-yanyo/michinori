@@ -11,6 +11,7 @@
         <el-button type="primary" @click="login">ログイン</el-button>
       </el-form-item>
     </el-form>
+    <router-link to="/signup">アカウントを持っていない</router-link>
   </div>
 </template>
 

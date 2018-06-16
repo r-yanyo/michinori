@@ -13,13 +13,14 @@
         <el-card class="box-card">
           <div slot="header" class="clearfix header">
             <h2>{{post.title}}</h2>
-            <p>author: {{post.author}}</p>
+            <p>投稿者: {{post.author}}</p>
           </div>
           <div class="text item">
             <div v-html="post.compiledMarkdown"></div>
           </div>
-          <el-row>
+          <el-row class="card-footer">
             <el-button round :disabled="buttonDisabled" @click="addLikeNum(post.id)">拍手: {{post.likeNum}}</el-button>
+            <div class="date">投稿日: {{post.created_at | moment}}</div>
           </el-row>
         </el-card>
       </li>
@@ -38,8 +39,10 @@
 <script>
 import auth from "./auth.js";
 import axios from "axios";
+import moment from "moment";
 import marked from "marked";
 
+moment.locale("ja");
 axios.defaults.headers["Authorization"] = auth.getToken();
 
 export default {
@@ -69,6 +72,11 @@ export default {
         (this.currentPage - 1) * this.POSTS_PER_PAGE,
         this.currentPage * this.POSTS_PER_PAGE
       );
+    }
+  },
+  filters: {
+    moment: function(date) {
+      return moment(date).format("YYYY年 MMMM Do");
     }
   },
   methods: {
@@ -151,6 +159,14 @@ li {
   }
   .item p {
     line-height: 40px;
+  }
+}
+.card-footer {
+  display: flex;
+  align-items: center;
+  .date {
+    font-size: 0.8rem;
+    margin-left: 20px;
   }
 }
 .v-enter-active {

@@ -11,6 +11,11 @@ class Api::SessionsController < ApplicationController
     end
   end
 
+  def create_oauth
+    @user = User.find_or_create_from_auth_hash(request.env['omniauth.auth'])
+    render :show, status: :ok
+  end
+
   # DELETE /api/sessions
   def destroy
     render plain: "success", status: :ok

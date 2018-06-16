@@ -29,6 +29,10 @@ ActiveRecord::Schema.define(version: 20180612132258) do
     t.datetime "updated_at", null: false
     t.string "password_digest", limit: 191, null: false
     t.string "remember_token", limit: 191
+    t.string "uid"
+    t.string "provider"
+    t.string "nickname"
+    t.string "image_url"
   end
 
 end

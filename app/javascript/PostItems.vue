@@ -20,6 +20,7 @@
     background
     layout="prev, pager, next"
     :page-size="POSTS_PER_PAGE"
+    :pager-count=5
     :total="posts.length" :current-page.sync="currentPage">
     </el-pagination>
   </div>

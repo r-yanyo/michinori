@@ -1,5 +1,13 @@
 <template>
   <div>
+    <el-pagination
+    background
+    layout="prev, next"
+    :page-size="POSTS_PER_PAGE"
+    :pager-count=5
+    :total="posts.length" :current-page.sync="currentPage"
+    @current-change="moveTop">
+    </el-pagination>
     <ul v-loading="loading" class="post-list">
       <li v-for="post in pagingPosts" :key="post.id">
         <el-card class="box-card">
@@ -18,10 +26,11 @@
     </ul>
     <el-pagination
     background
-    layout="prev, pager, next"
+    layout="prev, next"
     :page-size="POSTS_PER_PAGE"
     :pager-count=5
-    :total="posts.length" :current-page.sync="currentPage">
+    :total="posts.length" :current-page.sync="currentPage"
+    @current-change="moveTop">
     </el-pagination>
   </div>
 </template>
@@ -117,6 +126,9 @@ export default {
           this.buttonDisabled = false;
         }
       );
+    },
+    moveTop: function() {
+      window.scroll({ top: 0, left: 0 });
     }
   }
 };

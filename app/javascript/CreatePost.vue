@@ -48,6 +48,7 @@ import auth from "./auth.js";
 import axios from "axios";
 import marked from "marked";
 
+axios.defaults.headers["Authorization"] = auth.getToken();
 axios.defaults.headers["X-CSRF-TOKEN"] = document.querySelector(
   "meta[name=csrf-token]"
 ).content;

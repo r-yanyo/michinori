@@ -9,7 +9,7 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 
 # create administor
-@user = User.create!(name: "admin", email: "honma.ryosuke@gmail.com", password: "foobar", name: "user"+i.to_s(), remember_token: User.encrypt(User.new_remember_token))
+@user = User.create!(name: "admin", email: "honma.ryosuke@gmail.com", password: "foobar", remember_token: User.encrypt(User.new_remember_token))
 
 
 10.times do |i|

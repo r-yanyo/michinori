@@ -8,7 +8,7 @@
     :total="posts.length" :current-page.sync="currentPage"
     @current-change="moveTop">
     </el-pagination>
-    <ul v-loading="loading" class="post-list">
+    <ul v-loading="loading" :fullscreen="false" class="post-list">
       <li v-for="post in pagingPosts" :key="post.id">
         <el-card class="box-card">
           <div slot="header" class="clearfix header">
@@ -19,9 +19,11 @@
             <div v-html="post.compiledMarkdown"></div>
           </div>
           <el-row class="card-footer">
-            <el-button round :disabled="buttonDisabled" @click="addLikeNum(post.id)">拍手: {{post.likeNum}}</el-button>
             <div class="date">投稿日: {{post.created_at | moment}}</div>
+            <el-button round :disabled="buttonDisabled" @click="addLikeNum(post.id)">拍手: {{post.likeNum}}</el-button>
+            <el-button v-if="isDeletable(post)" :disabled="deleteButtonDisabled" round @click="dialogVisible = true, selectedPost=post.id">削除する</el-button>
           </el-row>
+            
         </el-card>
       </li>
     </ul>
@@ -33,6 +35,15 @@
     :total="posts.length" :current-page.sync="currentPage"
     @current-change="moveTop">
     </el-pagination>
+    <el-dialog
+      title="削除確認"
+      :visible.sync="dialogVisible">
+      <span>本当に削除しますか？</span>
+      <span slot="footer" class="dialog-footer">
+        <el-button type="primary" @click="dialogVisible = false, removePost(selectedPost)">削除する</el-button>
+        <el-button @click="dialogVisible = false">やめる</el-button>
+      </span>
+    </el-dialog>
   </div>
 </template>
 
@@ -52,11 +63,14 @@ export default {
       posts: [],
       currentPage: 1,
       buttonDisabled: false,
+      deleteButtonDisabled: false,
       loading: true,
-      POSTS_PER_PAGE: 10
+      POSTS_PER_PAGE: 10,
+      selectedPost: null,
+      dialogVisible: false
     };
   },
-  props: ["user_id"],
+  props: ["fetch_user_id", "user_id"],
   mounted: function() {
     //this.fetchPosts(this.currentPage);
     this.fetchPostsAll();
@@ -76,13 +90,13 @@ export default {
   },
   filters: {
     moment: function(date) {
-      return moment(date).format("YYYY年 MMMM Do");
+      return moment(date).format("YYYY年 MMMMDo");
     }
   },
   methods: {
     fetchPosts: function(pageNum) {
       let url = "";
-      if (this.user_id) url = `/api/users/${this.user_id}/posts`;
+      if (this.fetch_user_id) url = `/api/users/${this.fetch_user_id}/posts`;
       else url = "/api/posts";
       axios.get(`${url}?page=${pageNum}`).then(
         res => {
@@ -102,7 +116,7 @@ export default {
     },
     fetchPostsAll: function() {
       let url = "";
-      if (this.user_id) url = `/api/users/${this.user_id}/posts`;
+      if (this.fetch_user_id) url = `/api/users/${this.fetch_user_id}/posts`;
       else url = "/api/posts";
       axios.get(`${url}`).then(
         res => {
@@ -133,6 +147,27 @@ export default {
           console.log(error);
           this.buttonDisabled = false;
         }
+      );
+    },
+    removePost: function(post_id) {
+      this.deleteButtonDisabled = true;
+      axios.delete(`/api/posts/${post_id}`).then(
+        res => {
+          console.log(res);
+          this.deleteButtonDisabled = false;
+          this.fetchPostsAll();
+        },
+        error => {
+          console.log(error);
+          this.deleteButtonDisabled = false;
+        }
+      );
+    },
+    isDeletable: function(post) {
+      //adminである || 名無しの投稿でない && 自分の投稿である
+      return (
+        this.user_id == 1 ||
+        (post.user_id == this.user_id && post.user_id !== null)
       );
     },
     moveTop: function() {
@@ -166,7 +201,7 @@ li {
   align-items: center;
   .date {
     font-size: 0.8rem;
-    margin-left: 20px;
+    margin-right: 5px;
   }
 }
 .v-enter-active {

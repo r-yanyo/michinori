@@ -5,7 +5,7 @@
         <el-button type="danger" @click="logout">ログアウト</el-button>
       </el-form-item>
     </el-form>
-    <post-items  :user_id="getUserId()" />
+    <post-items :user_id="getUserId()" :fetch_user_id="getUserId()" />
   </div>
 </template>
 

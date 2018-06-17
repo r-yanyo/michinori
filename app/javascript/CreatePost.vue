@@ -14,7 +14,7 @@
       </el-input>
       </el-form-item>
       <el-form-item>
-        <el-button type="primary" @click="dialogVisible = true, submitPost">投稿する</el-button>
+        <el-button type="primary" @click="dialogVisible = true">投稿する</el-button>
         <el-button @click="previewDialogVisible = true">プレビュー</el-button>
       </el-form-item>
     </el-form>
@@ -81,11 +81,11 @@ export default {
       if (!this.form.content) this.errors.push("投稿内容が必要です。");
     },
     submitPost: function() {
+      axios.defaults.headers["Authorization"] = auth.getToken();
       axios
         .post("/api/posts", {
           title: this.form.title,
-          content: this.form.content,
-          remember_token: auth.getToken()
+          content: this.form.content
         })
         .then(
           res => {

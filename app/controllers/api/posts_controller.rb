@@ -10,7 +10,7 @@ class Api::PostsController < ApplicationController
     end
   end
 
-  # POST /api/posts, /api/users/posts
+  # POST /api/posts
   def create
     if @user
       @post = Post.new(post_params.merge(user_id: @user.id, author: @user.name))
@@ -25,7 +25,7 @@ class Api::PostsController < ApplicationController
     end
   end
 
-  # DELETE /api/users/posts/:id
+  # DELETE /api/posts/:id
   def destroy
     @post = Post.find(params[:id])
     if @user.id == @post.user_id

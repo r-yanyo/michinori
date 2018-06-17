@@ -13,12 +13,12 @@ Rails.application.routes.draw do
   namespace :api, format: 'json' do
     resources :users, only: [:create, :update, :destroy] do
       member do
-        resources :posts, only: [:index, :update, :create, :destroy]
+        resources :posts, only: [:index]
       end
     end
     post '/sessions', to: 'sessions#create'
     delete '/sessions', to: 'sessions#destroy'
-    resources :posts, only: [:index, :create]
+    resources :posts, only: [:index, :create, :update, :destroy]
     post '/like/post/:post_id', to: 'posts#add_like_num'
   end
 end

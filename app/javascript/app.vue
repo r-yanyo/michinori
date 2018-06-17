@@ -25,6 +25,7 @@ p {
 
 <style lang="scss">
 body {
+  margin: 0;
   font-size: 15px;
   font-family: "Quicksand", "游ゴシック体", "Yu Gothic", YuGothic,
     "ヒラギノ角ゴシック Pro", "Hiragino Kaku Gothic Pro", "メイリオ", Meiryo,

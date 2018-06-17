@@ -12,7 +12,7 @@
 @user = User.create!(name: "admin", email: "honma.ryosuke@gmail.com", password: "foobar", remember_token: User.encrypt(User.new_remember_token))
 
 
-10.times do |i|
+2.upto 10 do |i|
   @user = User.create!(email: "user"+i.to_s()+"@example.com", password: "foobar", name: "user"+i.to_s(), remember_token: User.encrypt(User.new_remember_token))
 
   10.times do |j|

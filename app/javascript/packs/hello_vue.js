@@ -11,6 +11,8 @@ import "./element-variables.scss";
 import locale from "element-ui/lib/locale/lang/ja";
 import router from "../router.js";
 
+import "../KouzanSoushoOTF.otf";
+
 Vue.use(ElementUI, { locale });
 
 import App from "../app.vue";

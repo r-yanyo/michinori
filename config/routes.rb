@@ -8,7 +8,7 @@ Rails.application.routes.draw do
   get '/mypage', to: 'home#index'
   get '/signup', to: 'home#index'
 
-  get '/auth/:provider/callback' => 'api/sessions#create_oauth', format: 'json'
+  get '/auth/:provider/callback' => 'api/sessions#create_oauth'
 
   namespace :api, format: 'json' do
     resources :users, only: [:create, :update, :destroy] do

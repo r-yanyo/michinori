@@ -9,8 +9,9 @@ export default {
         password
       })
       .then(res => {
-        const post = res.data.post;
-        this.setAccessToken(post.id, post.remember_token);
+        const user = res.data.user;
+        console.log(user);
+        this.setAccessToken(user.id, user.remember_token);
         router.push("/mypage");
       })
       .catch(err => {
@@ -43,7 +44,6 @@ export default {
         }
       })
       .then(res => {
-        console.log(res.data);
         router.push("/login");
       })
       .catch(err => {
@@ -53,7 +53,8 @@ export default {
   setAccessToken: function(id, token) {
     // localStorage.setItem("user_id", id);
     // localStorage.setItem("token", token);
-    document.cookie = `user_id=${id}; token=${token}`;
+    document.cookie = `user_id=${id};`;
+    document.cookie = `token=${token}`;
   },
   isLoggedIn: function() {
     // return !!localStorage.getItem("token");

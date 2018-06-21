@@ -8,6 +8,8 @@ import Login from "./Login";
 import MyPage from "./MyPage";
 import SignUp from "./SignUp";
 
+import auth from "./auth.js";
+
 Vue.use(VueRouter);
 
 const router = new VueRouter({
@@ -17,9 +19,20 @@ const router = new VueRouter({
     { path: "/about", component: About },
     { path: "/new", component: CreatePost },
     { path: "/login", component: Login },
-    { path: "/mypage", component: MyPage },
+    { path: "/mypage", component: MyPage, meta: { requiresAuth: true } },
     { path: "/signup", component: SignUp }
   ]
+});
+
+router.beforeEach((to, from, next) => {
+  if (
+    to.matched.some(record => record.meta.requiresAuth) &&
+    !auth.isLoggedIn()
+  ) {
+    next({ path: "/login" });
+  } else {
+    next();
+  }
 });
 
 export default router;

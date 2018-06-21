@@ -5,18 +5,30 @@
       <el-alert :title="error" type="error" :closable="false" class="alert"></el-alert>
     </div>
     <el-form ref="form" :model="form">
-      <el-form-item label="タイトル">
-        <el-input v-model="form.title" placeholder="例: 私が◯◯できるようになるまでの過程"></el-input>
-      </el-form-item>
-      <el-form-item label="投稿内容">
-        <el-input type="textarea" v-model="form.content" rows=15 
-        placeholder="内容 Markdown形式で書けます。">
-      </el-input>
-      </el-form-item>
-      <el-form-item>
-        <el-button type="primary" @click="dialogVisible = true">投稿する</el-button>
-        <el-button @click="previewDialogVisible = true">プレビュー</el-button>
-      </el-form-item>
+      <el-row :gutter="24">
+        <el-col :span="24" :sm="12">
+          <el-form-item label="タイトル">
+            <el-input v-model="form.title" placeholder="例: 私が◯◯できるようになるまでの過程"></el-input>
+          </el-form-item>
+          <el-form-item label="投稿内容">
+            <el-input type="textarea" v-model="form.content" rows=15 placeholder="内容 Markdown形式で書けます。"></el-input>
+          </el-form-item>
+        <el-form-item>
+          <el-button type="primary" @click="dialogVisible = true">投稿する</el-button>
+          <el-button @click="previewDialogVisible = true">プレビュー</el-button>
+        </el-form-item>
+        </el-col>
+        <el-col :sm="12" class="sync-preview">
+          <el-card class="box-card">
+            <div slot="header" class="clearfix header">
+              <h2>{{form.title}}</h2>
+            </div>
+            <div class="text item">
+              <div v-html="compiledMarkdown"></div>
+            </div>
+          </el-card>
+        </el-col>
+      </el-row>
     </el-form>
     <el-dialog
       title="投稿確認"
@@ -114,5 +126,24 @@ export default {
 <style lang="scss" scoped>
 .alert {
   margin-bottom: 5px;
+}
+.sync-preview {
+  display: none;
+  margin-top: 40px;
+  .box-card {
+    margin-bottom: 10px;
+    min-height: 430px;
+    .header h2 {
+      margin: 5px;
+    }
+    .item p {
+      line-height: 40px;
+    }
+  }
+}
+@media (min-width: 768px) {
+  .sync-preview {
+    display: block;
+  }
 }
 </style>

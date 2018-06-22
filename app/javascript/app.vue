@@ -31,6 +31,11 @@ body {
     "ヒラギノ角ゴシック Pro", "Hiragino Kaku Gothic Pro", "メイリオ", Meiryo,
     Osaka, "ＭＳ Ｐゴシック", "MS PGothic", sans-serif;
 }
+@media (min-width: 480px) {
+  body {
+    margin: 0 25px;
+  }
+}
 p {
   line-height: 1.65;
 }

@@ -3,6 +3,7 @@ import router from "./router.js";
 
 export default {
   login: function(email, password) {
+    const vm = this;
     return new Promise(function(resolve, reject) {
       axios
         .post("/api/sessions", {
@@ -11,11 +12,12 @@ export default {
         })
         .then(res => {
           const user = res.data.user;
-          this.setAccessToken(user.id, user.remember_token);
+          vm.setAccessToken(user.id, user.remember_token);
           router.push("/mypage");
           resolve(res);
         })
         .catch(err => {
+          console.log(err);
           reject(err);
         });
     });

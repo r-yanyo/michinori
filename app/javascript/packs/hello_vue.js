@@ -13,8 +13,6 @@ import "./element-variables.scss";
 import locale from "element-ui/lib/locale/lang/ja";
 import VueFlash from "vue2-flash";
 
-import "../KouzanSoushoOTF.otf";
-
 Vue.use(ElementUI, { locale });
 Vue.use(VueFlash);
 

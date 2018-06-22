@@ -11,10 +11,6 @@
 </template>
 
 <style lang="scss" scoped>
-@font-face {
-  font-family: "KouzanSoushoOTF";
-  src: url("./KouzanSoushoOTF.otf");
-}
 .container {
   max-width: 700px;
   margin: 0 auto;
@@ -24,7 +20,6 @@
   padding: 40px;
   text-align: center;
   h1 {
-    //font-family: "KouzanSoushoOTF";
     margin: 0;
     font-family: "游明朝体", "YuMincho";
     font-size: 4rem;

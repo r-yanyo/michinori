@@ -15,7 +15,7 @@ class Api::SessionsController < ApplicationController
     @user = User.find_or_create_from_auth_hash(request.env['omniauth.auth'])
     cookies[:user_id] = @user.id
     cookies[:token] = @user.remember_token
-    redirect_to "/"
+    redirect_to "/mypage"
   end
 
   # DELETE /api/sessions

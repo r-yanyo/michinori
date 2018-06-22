@@ -1,5 +1,6 @@
 <template>
   <div>
+    <flash animation="fade"></flash>
     <el-form ref="form" :model="form">
       <el-form-item label="メールアドレス">
         <el-input v-model="form.email" auto-complete="on"></el-input>
@@ -33,7 +34,9 @@ export default {
   },
   methods: {
     login: function() {
-      auth.login(this.form.email, this.form.password);
+      auth.login(this.form.email, this.form.password).catch(err => {
+        this.$flash.notify("danger", "ログインに失敗しました。");
+      });
     }
   }
 };

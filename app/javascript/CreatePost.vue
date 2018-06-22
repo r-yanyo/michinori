@@ -1,9 +1,6 @@
 <template>
   <div>
-    <el-alert v-if="success" title="投稿しました。" type="success" class="alert"></el-alert>
-    <div v-for="(error, i) in errors" :key="i">
-      <el-alert :title="error" type="error" :closable="false" class="alert"></el-alert>
-    </div>
+    <flash animation="fade"></flash>
     <el-form ref="form" :model="form">
       <el-row :gutter="24">
         <el-col :span="24" :sm="12">
@@ -73,8 +70,6 @@ export default {
         title: "",
         content: ""
       },
-      success: false,
-      errors: [],
       dialogVisible: false,
       previewDialogVisible: false
     };
@@ -86,11 +81,11 @@ export default {
   },
   methods: {
     checkForm: function() {
-      this.success = false;
-      this.errors = [];
       if (this.form.title && this.form.content) this.submitPost();
-      if (!this.form.title) this.errors.push("タイトルが必要です。");
-      if (!this.form.content) this.errors.push("投稿内容が必要です。");
+      else if (!this.form.title)
+        this.$flash.notify("danger", "タイトルが必要です。");
+      else if (!this.form.content)
+        this.$flash.notify("danger", "投稿内容が必要です。");
     },
     submitPost: function() {
       axios.defaults.headers["Authorization"] = auth.getToken();
@@ -104,7 +99,7 @@ export default {
             if (res.status == 200) {
               this.form.title = "";
               this.form.content = "";
-              this.success = true;
+              this.$flash.notify("success", "投稿しました。");
             }
           },
           error => {

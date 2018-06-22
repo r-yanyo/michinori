@@ -3,28 +3,27 @@ import router from "./router.js";
 
 export default {
   login: function(email, password) {
-    axios
-      .post("/api/sessions", {
-        email,
-        password
-      })
-      .then(res => {
-        const user = res.data.user;
-        console.log(user);
-        this.setAccessToken(user.id, user.remember_token);
-        router.push("/mypage");
-      })
-      .catch(err => {
-        console.log(err);
-        return false;
-      });
+    return new Promise(function(resolve, reject) {
+      axios
+        .post("/api/sessions", {
+          email,
+          password
+        })
+        .then(res => {
+          const user = res.data.user;
+          this.setAccessToken(user.id, user.remember_token);
+          router.push("/mypage");
+          resolve(res);
+        })
+        .catch(err => {
+          reject(err);
+        });
+    });
   },
   logout: function() {
     axios
       .delete(`/api/sessions`)
       .then(res => {
-        // localStorage.removeItem("user_id");
-        // localStorage.removeItem("token");
         document.cookie = "user_id=; max-age=0";
         document.cookie = "token=; max-age=0";
         router.push("/login");
@@ -34,40 +33,39 @@ export default {
       });
   },
   signup: function(name, email, password, password_confirmation) {
-    axios
-      .post(`api/users`, {
-        user: {
-          name,
-          email,
-          password,
-          password_confirmation
-        }
-      })
-      .then(res => {
-        router.push("/login");
-      })
-      .catch(err => {
-        console.log(err);
-      });
+    return new Promise(function(resolve, reject) {
+      axios
+        .post(`api/users`, {
+          user: {
+            name,
+            email,
+            password,
+            password_confirmation
+          }
+        })
+        .then(res => {
+          router.push("/login");
+          resolve(res);
+        })
+        .catch(err => {
+          console.log(err);
+          reject(err);
+        });
+    });
   },
   setAccessToken: function(id, token) {
-    // localStorage.setItem("user_id", id);
-    // localStorage.setItem("token", token);
     document.cookie = `user_id=${id};`;
     document.cookie = `token=${token}`;
   },
   isLoggedIn: function() {
-    // return !!localStorage.getItem("token");
     const cookies = this.getCookieArray();
     return !!cookies["token"];
   },
   getUserId: function() {
-    // return localStorage.getItem("user_id");
     const cookies = this.getCookieArray();
     return cookies["user_id"];
   },
   getToken: function() {
-    // return localStorage.getItem("token");
     const cookies = this.getCookieArray();
     return cookies["token"];
   },

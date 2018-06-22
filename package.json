@@ -4,13 +4,15 @@
   "dependencies": {
     "@rails/webpacker": "3.5",
     "axios": "^0.18.0",
+    "bootstrap-vue": "^2.0.0-rc.11",
     "element-ui": "^2.4.1",
     "marked": "^0.4.0",
     "moment": "^2.22.2",
     "vue": "^2.5.16",
     "vue-loader": "14.2.2",
     "vue-router": "^3.0.1",
-    "vue-template-compiler": "^2.5.16"
+    "vue-template-compiler": "^2.5.16",
+    "vue2-flash": "^1.0.6"
   },
   "devDependencies": {
     "webpack-dev-server": "2.11.2"

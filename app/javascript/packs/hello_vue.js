@@ -6,14 +6,17 @@
 // All it does is render <div>Hello Vue</div> at the bottom of the page.
 
 import Vue from "vue";
+import router from "../router.js";
+
 import ElementUI from "element-ui";
 import "./element-variables.scss";
 import locale from "element-ui/lib/locale/lang/ja";
-import router from "../router.js";
+import VueFlash from "vue2-flash";
 
 import "../KouzanSoushoOTF.otf";
 
 Vue.use(ElementUI, { locale });
+Vue.use(VueFlash);
 
 import App from "../app.vue";
 

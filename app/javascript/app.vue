@@ -42,4 +42,16 @@ p {
 .el-dialog {
   min-width: 300px;
 }
+.sy-vue-notify {
+  a {
+    float: right;
+    font-size: 21px;
+    font-weight: 700;
+    line-height: 1;
+    color: #000;
+    text-shadow: 0 1px 0 #fff;
+    filter: alpha(opacity=20);
+    opacity: 0.2;
+  }
+}
 </style>

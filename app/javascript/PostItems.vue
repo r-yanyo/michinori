@@ -14,7 +14,7 @@
       <li v-for="post in pagingPosts" :key="post.id">
         <el-card class="box-card">
           <div slot="header" class="clearfix header">
-            <h2>{{post.title}}</h2>
+            <h2><router-link :to="{ path: `post/${post.id}`}">{{post.title}}</router-link></h2>
             <p>投稿者: {{post.author}}</p>
           </div>
           <div class="text item">
@@ -25,7 +25,6 @@
             <el-button round :disabled="buttonDisabled" @click="addLikeNum(post.id)">拍手: {{post.likeNum}}</el-button>
             <el-button v-if="isDeletable(post)" :disabled="deleteButtonDisabled" round @click="dialogVisible = true, selectedPost=post.id">削除する</el-button>
           </el-row>
-            
         </el-card>
       </li>
     </ul>
@@ -183,6 +182,13 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+a {
+  color: #333;
+  text-decoration: none;
+}
+a:hover {
+  color: #00a3e2;
+}
 ul {
   padding: 0;
 }

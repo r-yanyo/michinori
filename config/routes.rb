@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   # SPAのために全てindexページへルーティングする
   root to: 'home#index'
   get '/about', to: 'home#index'
+  get '/post/:id', to: 'home#index'
   get '/new', to: 'home#index'
   get '/login', to: 'home#index'
   get '/mypage', to: 'home#index'
@@ -18,7 +19,7 @@ Rails.application.routes.draw do
     end
     post '/sessions', to: 'sessions#create'
     delete '/sessions', to: 'sessions#destroy'
-    resources :posts, only: [:index, :create, :update, :destroy]
+    resources :posts, only: [:index, :show, :create, :update, :destroy]
     post '/like/post/:post_id', to: 'posts#add_like_num'
   end
 end

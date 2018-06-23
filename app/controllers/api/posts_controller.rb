@@ -10,6 +10,16 @@ class Api::PostsController < ApplicationController
     end
   end
 
+  # GET /api/posts/:id
+  def show
+    @post = Post.find(params[:id])
+    if @post
+      render :show, status: :ok
+    else
+      render json: @post.errors, status: :not_found
+    end
+  end
+
   # POST /api/posts
   def create
     if @user

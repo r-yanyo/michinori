@@ -3,6 +3,7 @@ import VueRouter from "vue-router";
 
 import Index from "./Index";
 import About from "./About";
+import PostItem from "./PostItem";
 import CreatePost from "./CreatePost";
 import Login from "./Login";
 import MyPage from "./MyPage";
@@ -17,6 +18,7 @@ const router = new VueRouter({
   routes: [
     { path: "/", component: Index },
     { path: "/about", component: About },
+    { path: "/post/:id", component: PostItem },
     { path: "/new", component: CreatePost },
     { path: "/login", component: Login },
     { path: "/mypage", component: MyPage, meta: { requiresAuth: true } },
@@ -24,6 +26,7 @@ const router = new VueRouter({
   ]
 });
 
+// filter Page required Authorization
 router.beforeEach((to, from, next) => {
   if (
     to.matched.some(record => record.meta.requiresAuth) &&

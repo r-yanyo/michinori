@@ -1,5 +1,6 @@
 <template>
   <div>
+    <flash-float animation="fade"></flash-float>
     <el-input placeholder="投稿を検索する" v-model="searchValue" prefix-icon="el-icon-search" class="search-box">
     </el-input>
     <el-pagination
@@ -29,7 +30,7 @@
             <el-row>
               <div>
                 <el-button round :disabled="buttonDisabled" @click="addLikeNum(post.id)">拍手: {{post.likeNum}}</el-button>
-                <el-button v-if="isDeletable(post)" :disabled="deleteButtonDisabled" round @click="dialogVisible = true">削除する</el-button>
+                <el-button v-if="isDeletable(post)" :disabled="deleteButtonDisabled" round @click="dialogVisible = true, selectedPost = post.id">削除する</el-button>
                 <el-button round @click="tweet(post)"><i class="fab fa-twitter"></i></el-button>
               </div>
             </el-row>
@@ -174,10 +175,12 @@ export default {
           console.log(res);
           this.deleteButtonDisabled = false;
           this.fetchPostsAll();
+          this.$flash.notify("success", "投稿を削除しました。");
         },
         error => {
           console.log(error);
           this.deleteButtonDisabled = false;
+          this.$flash.notify("danger", "投稿の削除に失敗しました。");
         }
       );
     },

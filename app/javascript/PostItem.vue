@@ -1,5 +1,6 @@
 <template>
   <div>
+    <flash-float animation="fade"></flash-float>
     <el-card class="box-card">
       <div slot="header" class="clearfix header">
         <h2>{{post.title}}</h2>
@@ -100,10 +101,12 @@ export default {
           console.log(res);
           this.deleteButtonDisabled = false;
           this.fetchPostsAll();
+          this.$flash.notify("success", "投稿を削除しました。");
         },
         error => {
           console.log(error);
           this.deleteButtonDisabled = false;
+          this.$flash.notify("danger", "投稿の削除に失敗しました。");
         }
       );
     },

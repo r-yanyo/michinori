@@ -16,6 +16,7 @@
         </el-form-item>
         </el-col>
         <el-col :sm="12" class="sync-preview">
+          <label class="label">プレビュー</label>
           <el-card class="box-card">
             <div slot="header" class="clearfix header">
               <h2>{{form.title}}</h2>
@@ -124,9 +125,10 @@ export default {
 }
 .sync-preview {
   display: none;
-  margin-top: 40px;
+  .label {
+    line-height: 40px;
+  }
   .box-card {
-    margin-bottom: 10px;
     min-height: 430px;
     .header h2 {
       margin: 5px;

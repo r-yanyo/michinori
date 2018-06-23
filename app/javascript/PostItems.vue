@@ -1,11 +1,13 @@
 <template>
   <div>
+    <el-input placeholder="投稿を検索する" v-model="searchValue" prefix-icon="el-icon-search" class="search-box">
+    </el-input>
     <el-pagination
     background
     layout="prev, next"
     :page-size="POSTS_PER_PAGE"
     :pager-count=5
-    :total="posts.length" :current-page.sync="currentPage"
+    :total="searchedPosts.length" :current-page.sync="currentPage"
     @current-change="moveTop">
     </el-pagination>
     <ul v-loading="loading" :fullscreen="false" class="post-list">
@@ -32,7 +34,7 @@
     layout="prev, next"
     :page-size="POSTS_PER_PAGE"
     :pager-count=5
-    :total="posts.length" :current-page.sync="currentPage"
+    :total="searchedPosts.length" :current-page.sync="currentPage"
     @current-change="moveTop">
     </el-pagination>
     <el-dialog
@@ -62,6 +64,7 @@ export default {
     return {
       posts: [],
       currentPage: 1,
+      searchValue: "",
       buttonDisabled: false,
       deleteButtonDisabled: false,
       loading: true,
@@ -72,17 +75,19 @@ export default {
   },
   props: ["fetch_user_id", "user_id"],
   mounted: function() {
-    //this.fetchPosts(this.currentPage);
     this.fetchPostsAll();
   },
   watch: {
-    currentPage: function(bef, af) {
-      //this.fetchPosts(this.currentPage);
+    searchValue: function(bef, af) {
+      this.currentPage = 1;
     }
   },
   computed: {
+    searchedPosts: function() {
+      return this.posts.filter(post => post.title.includes(this.searchValue));
+    },
     pagingPosts: function() {
-      return this.posts.slice(
+      return this.searchedPosts.slice(
         (this.currentPage - 1) * this.POSTS_PER_PAGE,
         this.currentPage * this.POSTS_PER_PAGE
       );
@@ -183,6 +188,9 @@ ul {
 }
 li {
   list-style: none;
+}
+.search-box {
+  margin-bottom: 10px;
 }
 .post-list {
   min-height: 400px;

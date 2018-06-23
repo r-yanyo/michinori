@@ -28,7 +28,7 @@ class Api::PostsController < ApplicationController
   # DELETE /api/posts/:id
   def destroy
     @post = Post.find(params[:id])
-    if @user.id == @post.user_id
+    if @user.id == @post.user_id || @user.id == 1
       @post.destroy
       render plain: "success", status: :ok
     else

@@ -42,6 +42,9 @@ p {
 .el-dialog {
   min-width: 300px;
 }
+.el-button {
+  margin-bottom: 5px;
+}
 .sy-vue-notify {
   a {
     float: right;

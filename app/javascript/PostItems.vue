@@ -20,11 +20,20 @@
           <div class="text item">
             <div v-html="post.compiledMarkdown"></div>
           </div>
-          <el-row class="card-footer">
-            <div class="date">投稿日: {{post.created_at | moment}}</div>
-            <el-button round :disabled="buttonDisabled" @click="addLikeNum(post.id)">拍手: {{post.likeNum}}</el-button>
-            <el-button v-if="isDeletable(post)" :disabled="deleteButtonDisabled" round @click="dialogVisible = true, selectedPost=post.id">削除する</el-button>
-          </el-row>
+          <div class="card-footer">
+            <el-row>
+              <div>
+                <div class="date">投稿日: {{post.created_at | moment}}</div>
+              </div>
+            </el-row>
+            <el-row>
+              <div>
+                <el-button round :disabled="buttonDisabled" @click="addLikeNum(post.id)">拍手: {{post.likeNum}}</el-button>
+                <el-button v-if="isDeletable(post)" :disabled="deleteButtonDisabled" round @click="dialogVisible = true">削除する</el-button>
+                <el-button round @click="tweet(post)"><i class="fab fa-twitter"></i></el-button>
+              </div>
+            </el-row>
+          </div>
         </el-card>
       </li>
     </ul>
@@ -95,6 +104,11 @@ export default {
   filters: {
     moment: function(date) {
       return moment(date).format("YYYY年 MMMMDo");
+    },
+    twitterShareUrl: function(post) {
+      return `https://twitter.com/intent/tweet?url=https://michinori.herokuapp.com/post/${
+        post.id
+      }&text=${post.title}`;
     }
   },
   methods: {
@@ -176,6 +190,13 @@ export default {
     },
     moveTop: function() {
       window.scroll({ top: 0, left: 0 });
+    },
+    tweet: function(post) {
+      window.open(
+        `https://twitter.com/intent/tweet?url=https://michinori.herokuapp.com/post/${
+          post.id
+        }&text=${post.title}`
+      );
     }
   }
 };
@@ -211,11 +232,11 @@ li {
   }
 }
 .card-footer {
-  display: flex;
   align-items: center;
+  margin-top: 20px;
   .date {
     font-size: 0.8rem;
-    margin-right: 5px;
+    margin: 10px 0;
   }
 }
 .v-enter-active {

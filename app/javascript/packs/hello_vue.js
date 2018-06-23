@@ -13,6 +13,9 @@ import "./element-variables.scss";
 import locale from "element-ui/lib/locale/lang/ja";
 import VueFlash from "vue2-flash";
 
+import "@fortawesome/fontawesome-free-webfonts/css/fontawesome.css";
+import "@fortawesome/fontawesome-free-webfonts/css/fa-brands.css";
+
 Vue.use(ElementUI, { locale });
 Vue.use(VueFlash);
 

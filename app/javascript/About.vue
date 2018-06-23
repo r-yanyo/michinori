@@ -19,7 +19,7 @@
   padding: 80px 40px;
   text-align: center;
   background-size: cover;
-  background-image: url("magari_michi.png");
+  background-image: url("magari_michi-min.png");
   h1 {
     margin: 0;
     font-family: "游明朝体", "YuMincho";

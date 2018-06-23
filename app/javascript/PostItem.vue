@@ -1,7 +1,7 @@
 <template>
   <div>
     <flash-float animation="fade"></flash-float>
-    <el-card class="box-card">
+    <el-card class="box-card"　v-loading="loading">
       <div slot="header" class="clearfix header">
         <h2>{{post.title}}</h2>
         <p>投稿者: {{post.author}}</p>
@@ -53,6 +53,7 @@ export default {
       post: {},
       buttonDisabled: false,
       deleteButtonDisabled: false,
+      loading: true,
       dialogVisible: false
     };
   },
@@ -75,6 +76,7 @@ export default {
             sanitize: true
           });
           this.post = tmp;
+          this.loading = false;
         },
         error => {
           console.log(error);

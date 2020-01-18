@@ -1,24 +1,10 @@
-# README
+# 道のり
+今まで「頑張った」経験をシェアするサービスです。Vue.js + Ruby on Railsで作成しました。
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## 機能
+- レスポンシブデザイン
+- 匿名・ログイン投稿
+- 拍手・Twitterシェア
+- Markdownのリアルタイムプレビュー・実際のレイアウトでのプレビュー
+- 投稿の検索・ページング
 
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...

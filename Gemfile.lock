@@ -121,7 +121,7 @@ GEM
       rack
     pg (1.0.0)
     public_suffix (3.0.2)
-    puma (3.11.4)
+    puma (3.12.3)
     rack (2.0.5)
     rack-proxy (0.6.4)
       rack
@@ -221,7 +221,7 @@ DEPENDENCIES
   omniauth
   omniauth-twitter
   pg
-  puma (~> 3.7)
+  puma (~> 3.12)
   rails (~> 5.1.6)
   sass-rails (~> 5.0)
   selenium-webdriver
